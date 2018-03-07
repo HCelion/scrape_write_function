@@ -3,7 +3,7 @@ library(rvest)         # Parsing of html/xml files
 library(stringr)       # String manipulation
 library(rebus)         # Verbose regular expressions
 library(lubridate)     # Eases datetime manipulation
-library(RCurl)
+
 
 url <-'http://www.trustpilot.com/review/www.amazon.com'
 
