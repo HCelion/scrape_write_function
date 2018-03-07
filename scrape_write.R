@@ -5,8 +5,6 @@ library(rebus)         # Verbose regular expressions
 library(lubridate)     # Eases datetime manipulation
 
 
-url <-'http://www.trustpilot.com/review/www.amazon.com'
-
 get_last_page <- function(html){
   
 pages_data <- html %>% 
@@ -17,11 +15,6 @@ pages_data[(length(pages_data)-1)] %>%             # The second to last of the b
     unname() %>%                                     # Take the raw string
     as.numeric()                                     # Convert to number
 }
-
-first_page <- read_html(url)
-
-latest_page_number <- get_last_page(first_page)
-list_of_pages <- str_c(url, '?page=', 1:latest_page_number)
 
 get_reviews <- function(html){
   html %>% 
@@ -132,5 +125,8 @@ scrape_write_table <- function(url, company_name){
     bind_rows() %>%                           # Combines the tibbles into one tibble
     write_tsv(str_c(company_name,'.tsv'))     # Writes a tab separated file
 }
+
+
+url <-'http://www.trustpilot.com/review/www.amazon.com'
 
 scrape_write_table(url, 'amazon')
