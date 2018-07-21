@@ -71,7 +71,7 @@ get_star_rating <- function(html){
     
     
     # The pattern we look for
-    pattern = 'count-'%R% capture(DIGIT)  
+    pattern = 'star-rating-'%R% capture(DIGIT)  
     
     vector <- html %>% 
         html_nodes('.star-rating') %>% 
@@ -80,6 +80,7 @@ get_star_rating <- function(html){
         map(1) %>% 
         as.numeric()  
     vector <-  vector[!is.na(vector)]
+    vector <- vector[3:length(vector)]
     vector
 }
 
@@ -132,7 +133,7 @@ scrape_write_table <- function(url, company_name){
 
 
 
-url <-'http://www.trustpilot.com/review/www.amazon.com'
-
-scrape_write_table(url, 'amazon')
+# url <-'http://www.trustpilot.com/review/www.amazon.com'
+# scrape_write_table(url, 'amazon')
+# amazon_table <- read_tsv('amazon.tsv')
 
