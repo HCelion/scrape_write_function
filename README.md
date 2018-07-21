@@ -13,4 +13,4 @@ The second input is the label one wants to give the company within the scraped d
 scrape_write(url, 'amazon')
 ```
 
-It will take a couple of minutes, but unless the TrustPilot website has not changed, the data should be stored on your system.
+It will take a couple of minutes, but unless the TrustPilot website has changed the data should be stored on your system.
