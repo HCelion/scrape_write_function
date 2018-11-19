@@ -108,8 +108,16 @@ get_data_table <- function(html, company_name){
 }
 
 get_data_from_url <- function(url, company_name){
+  # Adds basic error catching, returns empty data_frame which works well
+  # With bind_rows further down the line
+  table <- tryCatch({
     html <- read_html(url)
-    get_data_table(html, company_name)
+    get_data_table(html, company_name)},
+    error = function(cond){
+      return(data.frame())
+    }
+  )
+  return(table)
 }
 
 scrape_write_table <- function(url, company_name){
@@ -125,10 +133,11 @@ scrape_write_table <- function(url, company_name){
     
     # Apply the extraction and bind the individual results back into one table, 
     # which is then written as a tsv file into the working directory
-    list_of_pages %>% 
+    table <- list_of_pages %>% 
         map(get_data_from_url, company_name) %>%  # Apply to all URLs
-        bind_rows() %>%                           # Combines the tibbles into one tibble
+        bind_rows() # %>%                           # Combines the tibbles into one tibble
         write_tsv(str_c(company_name,'.tsv'))     # Writes a tab separated file
+    return(table)
 }
 
 
